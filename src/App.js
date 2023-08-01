@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Home, User } from "./User";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Profile } from "./components/profile/Profile";
 
 function App() {
+  // const array = [10, 20, 30, 40, 50];
+
+  const userName = "Nisarg";
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header> This is header </header>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user" element={<User name={userName} age={20} />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+        <footer> This is footer </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
