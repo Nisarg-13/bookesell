@@ -1,8 +1,8 @@
 import './App.css';
 import { Route, Routes, NavLink } from 'react-router-dom';
-import Welcome from './components/Welcome';
-import User from './components/User';
-import Home from './components/Home';
+import Welcome from './Welcome';
+import User from './User';
+import Home from './Home';
 import { purple } from '@material-ui/core/colors';
 import { createTheme ,ThemeProvider } from '@material-ui/core/styles';
 
