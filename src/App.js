@@ -61,7 +61,7 @@ function App() {
         <Routes path='/'>
           <Route index element={<Home/>} />
           <Route path='/welcome' element={<Welcome />} />
-          <Route path='/user' element={<User name="Darshan" role="student" />} />
+          <Route path='/user' element={<User name="Nisarg" role="student" />} />
         </Routes>
       </div>
     </ThemeProvider>
