@@ -2,19 +2,24 @@ import './App.css';
 import './index.js';
 import { Route, Routes, NavLink } from 'react-router-dom';
 import Welcome from './components/Welcome';
-import User from './components/User';
-import {CssBaseline} from '@material-ui/core';
+import Register from './components/Register';
+import { CssBaseline, useTheme } from '@material-ui/core';
 import Home from './components/Home';
 import { purple } from '@material-ui/core/colors';
-import { createTheme ,ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ToastContainer, toa } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import Login from './components/Login';
+import Header from './components/Header';
+import { AuthProvider } from './contexts/auth';
+
 
 const theme = createTheme({
   palette: {
     primary: {
       // Purple and green play nicely together.
-      // main: purple[500],
       light: "#ff4081",
-      main: purple[500], 
+      main: purple[600],
       dark: "#c51162",
       contrastText: "#fff"
     },
@@ -24,46 +29,38 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily:'Fira Sans',
-    fontSize:15,
+    fontFamily: 'Fira Sans',
+    fontSize: 15,
     h1: {
       fontWeight: 300,
       fontSize: "6rem",
       lineHeight: 1.167,
       letterSpacing: "-0.01562em",
-      color:"#ff4081 !important",
+      color: "#ff4081 !important",
     },
-    
+
   },
 });
 
 function App() {
+
+
+  // const theme=useTheme();
+
   return (
     <ThemeProvider theme={theme}>
+      <AuthProvider>
+      <Header/>
+      <ToastContainer />
       <CssBaseline />
-  
-      <div >
-        <div style={
-          {
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            background: 'linear-gradient(120deg,pink,rgb(193, 132, 250))',
-            height: 70
-          }
-        }>
+      <Routes path='/'>
+        <Route index element={<Home />} />
+        <Route path='/welcome' element={<Welcome />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
 
-            <NavLink to='/' style={{fontSize:'1.2rem',textDecoration:'none'}}>HOME 🏠</NavLink><br />
-            <NavLink to='/welcome' style={{fontSize:'1.3rem',textDecoration:'none'}} > WELCOME 👋</NavLink><br />
-            <NavLink to='/user' style={{fontSize:'1.3rem',textDecoration:'none'}}> USER 🤵 </NavLink>
-        </div>
-
-        <Routes path='/'>
-          <Route index element={<Home/>} />
-          <Route path='/welcome' element={<Welcome />} />
-          <Route path='/user' element={<User name="Nisarg" role="student" />} />
-        </Routes>
-      </div>
+      </AuthProvider>
     </ThemeProvider>
 
   );

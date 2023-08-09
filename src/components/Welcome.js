@@ -6,7 +6,6 @@ export default function Welcome() {
     <div>
       <Typography variant='h1' align='center' color='primary'>Welcome</Typography>
       <Typography variant='h4' align='center' color='secondary'>WELCOME TO  OUR SITE 👋</Typography>
-      
     </div>
   )
 }

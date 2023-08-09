@@ -9,6 +9,7 @@ const TextFieldWrapper = ({
 
   const [field, meta] = useField(name);
   const configTextField = {
+    fullWidth: true,
     ...field,
     ...otherProps,
     }

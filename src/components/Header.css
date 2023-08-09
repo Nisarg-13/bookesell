@@ -1,0 +1,43 @@
+.header{
+    padding-right: 20px;
+    display: flex;
+    justify-content:right;
+    /* justify-content: space-between; */
+    align-items: center;
+    background: linear-gradient(120deg,pink,rgb(193, 132, 250),pink);
+    height: 50px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15)
+}
+
+.header a
+{
+     font-size: 1rem;
+     margin: 15px;
+     text-decoration: none; 
+}
+.header a.active
+{
+     /* font-size: 1.3rem; */
+     text-decoration: underline;
+     font-weight: bold; 
+     color:rgb(0, 0, 134);
+
+}
+.search
+{
+    font-size: 1.5rem;
+    z-index: 110;
+    align-self: right;
+}
+
+.overlay
+{
+    width:100vw;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    backdrop-filter: blur(0.1px);
+    
+}

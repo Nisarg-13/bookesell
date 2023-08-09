@@ -1,5 +1,17 @@
+*::-webkit-scrollbar {
+  display: none;
+}
+
+*{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 .App {
   text-align: center;
+}
+
+iframe{
+  display: none;
 }
 
 .App-logo {
