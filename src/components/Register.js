@@ -24,7 +24,7 @@ export default function Register(props) {
   }
 
 
-  const Option = ['buyer', 'Seller'];
+  const Option = [{id:3,name:'buyer'}, {id:2,name:'seller'}];
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required('First Name isRequired'),
