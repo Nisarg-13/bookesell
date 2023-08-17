@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { defaultFilter } from "../constant/constant";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -14,66 +14,53 @@ import {
   Paper,
   TextField,
 } from "@material-ui/core";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Confirm from "./Confirm";
-import userService from "../service/user.service";
 
-const Users = () => {
-  // initial filter while page is rendering
-  const defaultFilter = {
-    pageIndex: 1,
-    pageSize: 10,
-  };
+import categoryService from "../service/category.service";
+import { toast } from "react-toastify";
+import Confirm from "./Confirm";
+
+const Category = () => {
+  const Navigate = useNavigate();
   const [filters, setFilters] = useState(defaultFilter);
-  const [user, setUser] = useState({
+  const [categoryRecords, setCategoryRecords] = useState({
     pageIndex: 0,
     pageSize: 10,
     totalPages: 1,
     items: [],
     totalItems: 0,
   });
-
-  const [selectedId, setSelectedId] = useState(0);
   const [open, setOpen] = useState(false);
-  const Navigate = useNavigate();
-  const columns = [
-    { id: "ID", label: "ID", width: 70 },
-    { id: "firstName", label: "First Name", width: 70 },
-    { id: "lastName", label: "Last Name", width: 70 },
-    {
-      id: "email",
-      label: "Email",
-      width: 150,
-    },
-    {
-      id: "role",
-      label: "Role",
-      width: 70,
-    },
-  ];
+  const [selectedId, setSelectedId] = useState(0);
 
   useEffect(() => {
-    getAllUsers({ ...filters });
+    const timer = setTimeout(() => {
+      if (filters.keyword === "") delete filters.keyword;
+      searchAllCategories({ ...filters });
+    }, 500);
+    return () => clearTimeout(timer);
   }, [filters]);
 
-  const getAllUsers = async (filters) => {
-    await userService.getAllUsers(filters).then((res) => {
-      if (res) {
-        setUser(res);
-      }
-    });
-  };
-  const onConfirmDelete = () => {
-    userService.deleteUser(selectedId).then((res) => {
-      if (res) {
-        toast.success("User Deleted Successfully...");
-        setOpen(false);
-        setFilters({ ...filters });
-      }
+  const searchAllCategories = (filters) => {
+    categoryService.getAll(filters).then((res) => {
+      setCategoryRecords(res);
     });
   };
 
+  const columns = [
+    { id: "id", label: "ID", minWidth: 100 },
+    { id: "name", label: "Category Name", minWidth: 100 },
+  ];
+
+  const onConfirmDelete = () => {
+    categoryService
+      .deleteCategory(selectedId)
+      .then((res) => {
+        toast.success("sucessfull....");
+        setOpen(false);
+        setFilters({ ...filters });
+      })
+      .catch((e) => toast.error("something went wrong"));
+  };
   return (
     <>
       <Typography
@@ -82,7 +69,7 @@ const Users = () => {
         variant="h4"
         style={{ marginBottom: 20, fontWeight: "bold" }}
       >
-        Users Page
+        Categories Page
       </Typography>
       <div
         className="searchContainer"
@@ -114,8 +101,18 @@ const Users = () => {
               pageIndex: 1,
             });
           }}
-          style={{width: 300 }}
+          style={{ marginInline: 20, width: 300 }}
         />
+        <Button
+          type="submit"
+          size="large"
+          className="productbtn"
+          variant="contained"
+          color="primary"
+          onClick={() => Navigate("/add-category")}
+        >
+          Add
+        </Button>
       </div>
       <div style={{ marginBottom: "10px" }}></div>
       <div style={{ margin: "auto", width: "80%" }}>
@@ -124,7 +121,7 @@ const Users = () => {
             <TableHead
               style={{ background: "linear-gradient(120deg,pink,violet,pink)" }}
             >
-              <TableRow>
+              <TableRow style={{ width: "100%" }}>
                 {columns.map((column) => (
                   <TableCell key={column.id} style={{ minWidth: column.width }}>
                     <Typography color="primary" variant="h6">
@@ -136,16 +133,12 @@ const Users = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {user?.items?.map((row, index) => {
+              {categoryRecords?.items?.map((row, index) => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.firstName}</TableCell>
-                    <TableCell>{row.lastName}</TableCell>
-                    <TableCell>
-                      {row.email}
-                    </TableCell>
-                    <TableCell>{row.role}</TableCell>
+                    <TableCell>{row.name}</TableCell>
+
                     <TableCell>
                       <Button
                         type="button"
@@ -154,7 +147,7 @@ const Users = () => {
                         variant="contained"
                         disableElevation
                         onClick={() => {
-                          Navigate(`/editUser/${row.id}`);
+                          Navigate(`/editCategory/${row.id}`);
                         }}
                       >
                         Edit
@@ -177,7 +170,7 @@ const Users = () => {
                   </TableRow>
                 );
               })}
-              {!user.items.length && (
+              {!categoryRecords.items.length && (
                 <TableRow>
                   <TableCell colSpan={5}>
                     <Typography align="center" className="noDataText">
@@ -192,7 +185,7 @@ const Users = () => {
         <TablePagination
           rowsPerPageOptions={[4, 5, 10, 100]}
           component="div"
-          count={user.totalItems}
+          count={categoryRecords.totalItems}
           rowsPerPage={filters.pageSize || 0}
           page={filters.pageIndex - 1}
           onPageChange={(e, newPage) => {
@@ -211,10 +204,11 @@ const Users = () => {
           onClose={() => setOpen(false)}
           onConfirm={() => onConfirmDelete()}
           title="Delete book"
-          description="Are you sure you want to delete this user?"
+          description="Are you sure you want to delete this Category?"
         />
       </div>
     </>
   );
 };
-export default Users;
+
+export default Category;

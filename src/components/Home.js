@@ -10,14 +10,18 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
+import { toast } from "react-toastify";
 import { useAuthContext } from "../contexts/auth";
 import { materialCommonStyles } from "../utils/materialCommonStyles";
 import { defaultFilter } from "../constant/constant";
 import categoryService from "../service/category.service";
 import bookService from "../service/book.service";
+import { useCartContext } from "../contexts/cartContext";
+import shared from "../utils/Shared";
+
 export default function BookListing() {
   const authContext = useAuthContext();
-  // const cartContext = useCartContext();
+  const cartContext = useCartContext();
   //   const classes = productListingStyle();
   const materialClasses = materialCommonStyles();
   const [bookResponse, setBookResponse] = useState({
@@ -70,16 +74,17 @@ export default function BookListing() {
     return [];
   }, [categories, bookResponse]);
 
-  //   const addToCart = (book) => {
-  //     Shared.addToCart(book, authContext.user.id).then((res) => {
-  //       if (res.error) {
-  //         toast.error(res.message);
-  //       } else {
-  //         toast.success(res.message);
-  //         cartContext.updateCart();
-  //       }
-  //     });
-  //   };
+  const addToCart = (book) => {
+    console.log("addToCart:::", book);
+    shared.addToCart(book, authContext.user.id).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
+      } else {
+        toast.success(res.message);
+        cartContext.updateCart();
+      }
+    });
+  };
 
   const sortBooks = (e) => {
     setSortBy(e.target.value);
@@ -264,7 +269,7 @@ export default function BookListing() {
                       {book.description}
                     </Typography>
                     <Typography>MRP &#8377; {book.price}</Typography>
-                    <Button variant="contained" color="primary" onClick={()=>console.log("hiiii")}>
+                    <Button variant="contained" color="primary" onClick={() => addToCart(book)}>
                       Add To Cart
                     </Button>
                   </div>

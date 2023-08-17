@@ -1,7 +1,7 @@
 import React from 'react';
 import cartService from '../service/cart.service';
 
-const addtoCart=async(book,id)=>{
+const addToCart=async(book,id)=>{
     return cartService
     .add({
       userId: id,
@@ -19,5 +19,4 @@ const addtoCart=async(book,id)=>{
 
 
 };
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {addtoCart};
+export default {addToCart};

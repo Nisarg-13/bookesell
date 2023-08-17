@@ -4,13 +4,28 @@ import { List, Button, Input, ListItem, ListItemText } from "@material-ui/core";
 import "./Header.css";
 import bookService from "../service/book.service";
 import { useAuthContext } from "../contexts/auth";
+import { useCartContext } from "../contexts/cartContext";
+import shared from "../utils/Shared";
+
 
 export default function Header() {
   const authContext = useAuthContext();
+  const cartContext = useCartContext();
   const [value, setValue] = React.useState("");
   let [bookList, setBookList] = React.useState([]);
   const [showSearch, setShowSearch] = React.useState(false);
   const [showList, setShowList] = React.useState(false);
+
+  const addToCart = (book) => {
+    shared.addToCart(book, authContext.user.id).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
+      } else {
+        toast.success(res.message);
+        cartContext.updateCart();
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -60,6 +75,8 @@ export default function Header() {
             <NavLink to="/add-book">Add Book</NavLink>
             {/* <NavLink to="/bookList">Book List</NavLink> */}
             <NavLink to="/users">Users</NavLink>
+            <NavLink to="/category">Categories</NavLink>
+            <NavLink to="/cart">Cart</NavLink>
             {/* <NavLink to="/update-profile">Update Profile</NavLink> */}
             <Button color='primary' onClick={()=>authContext.signOut()}>LogOut</Button>
           </>
@@ -106,7 +123,7 @@ export default function Header() {
                   primaryTypographyProps={{ color: "primary" }}
                   secondaryTypographyProps={{ color: "secondary" }}
                 />
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={() => addToCart(book)}>
                   Add to Cart
                 </Button>
               </ListItem>

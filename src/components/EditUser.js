@@ -4,7 +4,6 @@ import TextFieldCustom from "../UI/TextField";
 import Select from "../UI/Select";
 import { Typography,Button, Grid } from "@material-ui/core";
 import { useNavigate, useParams } from "react-router-dom";
-import bookService from "../service/book.service";
 import { Formik, Form } from "formik";
 
 import { toast } from "react-toastify";
@@ -15,7 +14,6 @@ import userService from "../service/user.service";
 
 
 const EditUser = () => {
-//   let upload = React.useRef(null);
   const navigate = useNavigate();
   const initialValues = {
     id: 0,
@@ -28,19 +26,6 @@ const EditUser = () => {
   const { id } = useParams();
   const roles= [{id:1,name:'admin'},{id:2,name:'seller'},{id:3,name:'buyer'}]
 
-//   const getBookById = () => {
-//     bookService.getById(Number(id)).then((res) => {
-//       console.log("book found ", res);
-//       setInitialValueState({
-//         id: res.id,
-//         name: res.name,
-//         price: res.price,
-//         categoryId: res.categoryId,
-//         description: res.description,
-//         base64image: res.base64image,
-//       });
-//     });
-//   };
 
   useEffect(() => {
     if (id) {
@@ -54,7 +39,6 @@ const EditUser = () => {
             }
           });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const validationSchema = Yup.object().shape({
@@ -82,33 +66,6 @@ const EditUser = () => {
      })
   };
 
-//   const onSelectFile = (e, setFieldValue, setFieldError) => {
-//     const files = e.target.files;
-//     if (files?.length) {
-//       const fileSelected = e.target.files[0];
-//       const fileNameArray = fileSelected.name.split(".");
-//       const extension = fileNameArray.pop();
-//       if (["png", "jpg", "jpeg"].includes(extension?.toLowerCase())) {
-//         if (fileSelected.size > 50000) {
-//           toast.error("File size must be less then 50KB");
-//           return;
-//         }
-//         const reader = new FileReader();
-//         reader.readAsDataURL(fileSelected);
-//         reader.onload = function () {
-//           setFieldValue("base64image", reader.result);
-//         };
-//         reader.onerror = function (error) {
-//           throw error;
-//         };
-//       } else {
-//         toast.error("only jpg,jpeg and png files are allowed");
-//       }
-//     } else {
-//       setFieldValue("base64image", "");
-//     }
-//   };
-
   return (
     <>
       <Typography variant="h4" align="center" color="primary" style={{fontWeight:'bold'}}>
@@ -117,13 +74,10 @@ const EditUser = () => {
 
       <div
         style={{
-         //  border: "1px solid black",
           marginTop:20
         }}
       >
         <Formik
-          //   validateOnChange='true'
-          
           initialValues={initialValueState}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
