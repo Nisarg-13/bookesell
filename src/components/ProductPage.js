@@ -74,7 +74,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <Typography color="primary" align="center" variant="h4" style={{marginBottom:20,fontWeight:'bold'}}>
+      <Typography color="primary" align="center" variant="h4" style={{marginBottom:20,marginTop:20,fontWeight:'bold'}}>
         Product Page
       </Typography>
       <div
@@ -97,7 +97,7 @@ const ProductPage = () => {
           variant="outlined"
           inputProps={{ className: "small" }}
           onChange={(e) => {
-            if(e.target.value == '')
+            if(e.target.value === '')
             {
                 setFilters(defaultFilter);
                 return;
@@ -121,7 +121,7 @@ const ProductPage = () => {
           Add
         </Button>
       </div>
-      <div style={{ marginBottom: "10px" }}></div>
+      <div style={{ marginBottom: "20px" }}></div>
       <div style={{ margin: "auto", width: "80%" }}>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

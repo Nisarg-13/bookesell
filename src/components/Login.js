@@ -29,7 +29,7 @@ export default function Login() {
     const onSubmit = (data) => {
         console.log("LOGIN ......")
         authService.login(data).then((res) => {
-            toast.success("Successfully registered");
+            toast.success("Successfully Logged In");
             // console.log("res",res);
             authContext.setUser(res);
             // setLogin(true);
@@ -40,7 +40,7 @@ export default function Login() {
     const navigate = useNavigate();
     return (
         < div style={{ overflow: 'hidden' }}>
-            <Typography variant='h4' align='center' color='primary' style={{fontWeight:'bolder'}}>
+            <Typography variant='h4' align='center' color='primary' style={{fontWeight:'bolder', marginTop:20}}>
                 LOGIN
             </Typography>
 

@@ -1,8 +1,8 @@
 import './App.css';
 import './index.js';
-import { Route, Routes, NavLink } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
-import { CssBaseline, useTheme } from '@material-ui/core';
+import { CssBaseline } from '@material-ui/core';
 import Home from './components/Home';
 import { purple } from '@material-ui/core/colors';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -19,6 +19,7 @@ import EditUser from './components/EditUser';
 import Category from './components/categoty';
 import EditCategory from './components/EditCategory';
 import Cart from './components/Cart';
+import { Component } from 'react';
 const theme = createTheme({
   palette: {
     primary: {
@@ -49,9 +50,6 @@ const theme = createTheme({
 
 function App() {
 
-
-  // const theme=useTheme();
-
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
@@ -81,6 +79,7 @@ function App() {
     </ThemeProvider>
 
   );
+  
 }
 
-export default App;
+export default App; 

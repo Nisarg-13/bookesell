@@ -6,7 +6,7 @@ import bookService from "../service/book.service";
 import { useAuthContext } from "../contexts/auth";
 import { useCartContext } from "../contexts/cartContext";
 import shared from "../utils/Shared";
-
+import { toast } from "react-toastify";
 
 export default function Header() {
   const authContext = useAuthContext();
@@ -64,26 +64,41 @@ export default function Header() {
     console.log("BOOKLIST ", bookList);
   };
 
-
   return (
     <>
       <div className="header">
-        {authContext.user.id!=0 && (
+        {authContext.user.id !== 0 && (
           <>
             <NavLink to="/">HOME 🏠</NavLink>
-            <NavLink to="/product">View Book</NavLink>
-            <NavLink to="/add-book">Add Book</NavLink>
+
             {/* <NavLink to="/bookList">Book List</NavLink> */}
-            <NavLink to="/users">Users</NavLink>
-            <NavLink to="/category">Categories</NavLink>
-            <NavLink to="/cart">Cart</NavLink>
             {/* <NavLink to="/update-profile">Update Profile</NavLink> */}
-            <Button color='primary' onClick={()=>authContext.signOut()}>LogOut</Button>
           </>
         )}
-  
+        {(authContext.user.roleId === 1 || authContext.user.roleId === 2) && (
+          <>
+            <NavLink to="/product">View Book</NavLink>
+            <NavLink to="/add-book">Add Book</NavLink>
+            <NavLink to="/category">Categories</NavLink>
+          </>
+        )}
+        {(authContext.user.roleId === 1) && (
+          <>
+            <NavLink to="/users"> Users </NavLink>
+          </>
+        )}
+        {/* // buyer-->3 seller-->2  */}
+
         {!authContext.user.id && <NavLink to="/register">Register</NavLink>}
         {!authContext.user.id && <NavLink to="/login">Login</NavLink>}
+        {authContext.user.id !== 0 && (
+          <>
+            <NavLink to="/cart">Cart</NavLink>
+            <Button color="primary" onClick={() => authContext.signOut()}>
+              LogOut
+            </Button>
+          </>
+        )}
 
         <div className="search" onClick={onSearch}>
           🔎
@@ -123,7 +138,11 @@ export default function Header() {
                   primaryTypographyProps={{ color: "primary" }}
                   secondaryTypographyProps={{ color: "secondary" }}
                 />
-                <Button variant="contained" color="secondary" onClick={() => addToCart(book)}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => addToCart(book)}
+                >
                   Add to Cart
                 </Button>
               </ListItem>

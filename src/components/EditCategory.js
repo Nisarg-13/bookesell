@@ -46,7 +46,7 @@ const EditCategory = () => {
         variant="h4"
         align="center"
         color="primary"
-        style={{ fontWeight: "bold" }}
+        style={{ fontWeight: "bold", marginTop:20 }}
       >
         {id ? "Edit" : "Add"} Category
       </Typography>

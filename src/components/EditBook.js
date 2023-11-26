@@ -6,9 +6,9 @@ import { Typography,Button, Grid } from "@material-ui/core";
 import { useNavigate, useParams } from "react-router-dom";
 import bookService from "../service/book.service";
 import { Formik, Form } from "formik";
+
 import { toast } from "react-toastify";
 import categoryService from "../service/category.service";
-
 
 const EditBook = () => {
   let upload = React.useRef(null);
@@ -98,7 +98,7 @@ const EditBook = () => {
 
   return (
     <>
-      <Typography variant="h4" align="center" color="primary" style={{fontWeight:'bold'}}>
+      <Typography variant="h4" align="center" color="primary" style={{fontWeight:'bold', marginTop:20}}>
         {id ? "Edit" : "Add"} Book
       </Typography>
 
@@ -131,7 +131,7 @@ const EditBook = () => {
 
             <Grid container justifyContent="space-evenly">
               <Grid item xs={5}>
-                <Select name="categoryId" options={categories} label="Roles" />
+                <Select name="categoryId" options={categories} label="Category" />
               </Grid>
               <Grid item xs={5}>
                 {/* <TextFieldCustom name='email' defaultValue={"mnkj"} label="email" /> */}

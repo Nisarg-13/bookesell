@@ -86,6 +86,25 @@ export default function BookListing() {
     });
   };
 
+  // const Average = (books) => {
+  //   console.log(books);
+  //   console.log(bookResponse.items);
+
+  //   let total = 0;
+  //   let count = 0;
+
+  //   books.map((book) => {
+  //     // console.log(book.price);
+  //     total += book.price;
+  //     count +=  1;
+  //   });
+  //   console.log("total", total);
+  //   console.log("count", count);
+  //   let average = total / count;
+  //   console.log(average);
+  //   return average;
+  // };
+
   const sortBooks = (e) => {
     setSortBy(e.target.value);
     const bookList = [...bookResponse.items];
@@ -104,15 +123,16 @@ export default function BookListing() {
 
   return (
     <div style={{ overflowX: "hidden" }}>
-
-        <Typography variant="h4" align="center" color="primary" style={{marginBottom:20,fontWeight:'bold'}}>
-          Book Listing
-        </Typography>
-
-
+      <Typography
+        variant="h4"
+        align="center"
+        color="primary"
+        style={{ marginBottom: 20, marginTop: 20, fontWeight: "bold" }}
+      >
+        Book Listing
+      </Typography>
 
       <div className="container">
-
         {/*  HEDER */}
         <Grid
           container
@@ -177,117 +197,130 @@ export default function BookListing() {
           </Grid>
         </Grid>
 
-
-
         {/* ITEMS  */}
-          <div
-            className="product-list-inner-wrapper"
-            style={{
-                // border: "1px solid red",
-              display: "flex",
-              width:"90vw",
-              marginInline:'auto',
-              flexWrap: "wrap",
-            }}
-          >
-            {books.map((book, index) => (
-              <div
-                className="product-list"
-                key={book.id}
-                style={{
-                  border: "1px solid rgb(0,0,0,0.1)",
-                  width: "24%",
-                  height: "380px",
-                  overflow: "scroll",
-                  marginInline:'auto',
-                  borderRadius: "10px",
-                  boxShadow: "1px 1px 2px grey",   
-                  marginBlock: 20,
-                  padding: 10,
-                  overflow: "hidden",
-                  backgroundColor: "rgba(122,122,122,0.05)",
-                }}
-              >
-                <div className="product-list-inner">
-                  <em
+        <div
+          className="product-list-inner-wrapper"
+          style={{
+            // border: "1px solid red",
+            display: "flex",
+            width: "90vw",
+            marginInline: "auto",
+            flexWrap: "wrap",
+          }}
+        >
+          {books.map((book, index) => (
+            <div
+              className="product-list"
+              key={book.id}
+              style={{
+                border: "1px solid rgb(0,0,0,0.1)",
+                width: "24%",
+                height: "380px",
+                overflow: "scroll",
+                marginInline: "auto",
+                borderRadius: "10px",
+                boxShadow: "1px 1px 2px grey",
+                marginBlock: 20,
+                padding: 10,
+                overflow: "hidden",
+                backgroundColor: "rgba(122,122,122,0.05)",
+              }}
+            >
+              <div className="product-list-inner">
+                <em
+                  style={{
+                    width: "100%",
+                    height: 150,
+                    //   border: "1px solid black",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img
+                    src={book.base64image}
+                    className="image"
+                    alt="dummyimage"
                     style={{
-                      width: "100%",
-                      height: 150,
-                      //   border: "1px solid black",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      // width: "100%",
+                      height: "150px",
+                    }}
+                  />
+                </em>
+                <div
+                  className="content-wrapper"
+                  style={{
+                    // border:'1px solid #000',
+                    display: "flex",
+                    alignItems: "center",
+                    // justifyContent: 'flex-start',
+                    flexDirection: "column",
+                    margin: 10,
+                    overflow: "scroll",
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    style={{
+                      // fontWeight:'bold'
+                      maxHeight: "20",
+                      overflow: "hidden",
                     }}
                   >
-                    <img
-                      src={book.base64image}
-                      className="image"
-                      alt="dummyimage"
-                      style={{
-                        // width: "100%",
-                        height: "150px",
-                      }}
-                    />
-                  </em>
-                  <div
-                    className="content-wrapper"
+                    {book.name}
+                  </Typography>
+                  <Typography variant="subtitle1" color="secondary">
+                    {book.category}
+                  </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    className="description"
                     style={{
+                      height: 48,
+                      // lineHeight: 20,
                       // border:'1px solid #000',
-                      display: "flex",
-                      alignItems: "center",
-                      // justifyContent: 'flex-start',
-                      flexDirection: "column",
-                      margin: 10,
+
+                      textAlign: "center",
+                      fontSize: 16,
                       overflow: "scroll",
                     }}
                   >
-                    <Typography
-                      variant="h5"
-                      color="primary"
-                      style={{
-                        // fontWeight:'bold'
-                        maxHeight: "20",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {book.name}
-                    </Typography>
-                    <Typography variant="subtitle1" color="secondary">{book.category}</Typography>
-                    <Typography
-                      variant="subtitle2"
-                      className="description"
-                      style={{
-                        height: 48,
-                        // lineHeight: 20,
-                        // border:'1px solid #000',
+                    {book.description}
+                  </Typography>
+                  <Typography>MRP &#8377; {book.price}</Typography>
 
-                        textAlign: "center",
-                        fontSize: 16,
-                        overflow: "scroll",
-                      }}
-                    >
-                      {book.description}
-                    </Typography>
-                    <Typography>MRP &#8377; {book.price}</Typography>
-                    <Button variant="contained" color="primary" onClick={() => addToCart(book)}>
-                      Add To Cart
-                    </Button>
-                  </div>
+                  {/* { book.price > Average(bookResponse.items) && (
+                    <p style={{ color: "red" }}>MRP &#8377; {book.price} </p>
+                  )}  
+
+                  { book.price <= Average(bookResponse.items) && (
+                    <p style={{ color: "green" }}>MRP &#8377; {book.price} </p>
+                  )} */}
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => addToCart(book)}
+                  >
+                    Add To Cart
+                  </Button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-
-
-        <div className="pagination-wrapper" 
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            marginBlock:20
-        }}>
+        <div
+          className="pagination-wrapper"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            marginBlock: 20,
+          }}
+        >
           <Pagination
             count={bookResponse.totalPages}
             page={filters.pageIndex}
@@ -296,8 +329,6 @@ export default function BookListing() {
             }}
           />
         </div>
-
-
       </div>
     </div>
   );

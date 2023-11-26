@@ -80,7 +80,7 @@ const Users = () => {
         color="primary"
         align="center"
         variant="h4"
-        style={{ marginBottom: 20, fontWeight: "bold" }}
+        style={{ marginBottom: 20, marginTop:20, fontWeight: "bold" }}
       >
         Users Page
       </Typography>
@@ -104,7 +104,7 @@ const Users = () => {
           variant="outlined"
           inputProps={{ className: "small" }}
           onChange={(e) => {
-            if (e.target.value == "") {
+            if (e.target.value === "") {
               setFilters(defaultFilter);
               return;
             }
@@ -114,7 +114,7 @@ const Users = () => {
               pageIndex: 1,
             });
           }}
-          style={{width: 300 }}
+          style={{width: 300, marginBottom:10 }}
         />
       </div>
       <div style={{ marginBottom: "10px" }}></div>

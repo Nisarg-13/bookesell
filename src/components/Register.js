@@ -51,7 +51,7 @@ export default function Register(props) {
   };
   return (
     < div style={{ overflow: 'hidden' }}>
-      <Typography variant='h4' align='center' color='primary' style={{fontWeight:'bolder'}}>
+      <Typography variant='h4' align='center' color='primary' style={{fontWeight:'bolder', marginTop:20}}>
         CREATE ACCOUNT
       </Typography>
 
@@ -134,3 +134,4 @@ export default function Register(props) {
 
   )
 }
+

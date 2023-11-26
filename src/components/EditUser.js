@@ -7,11 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Form } from "formik";
 
 import { toast } from "react-toastify";
-import categoryService from "../service/category.service";
+// import categoryService from "../service/category.service";
 import userService from "../service/user.service";
-
-
-
 
 const EditUser = () => {
   const navigate = useNavigate();
@@ -68,7 +65,7 @@ const EditUser = () => {
 
   return (
     <>
-      <Typography variant="h4" align="center" color="primary" style={{fontWeight:'bold'}}>
+      <Typography variant="h4" align="center" color="primary" style={{fontWeight:'bold', marginTop:20}}>
         Edit User
       </Typography>
 

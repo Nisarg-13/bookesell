@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { cartStyle } from "./style";
-import { Typography, Button, Link } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import cartService from "../service/cart.service";
 import { useAuthContext } from "../contexts/auth";
 import { toast } from "react-toastify";
 import { Grid } from "@material-ui/core";
 import orderService from "../service/order.service";
-import Shared from "../utils/Shared";
+// import Shared from "../utils/Shared";
 import { useCartContext } from "../contexts/cartContext";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,7 @@ const Cart = () => {
     let totalPrice = 0;
     itemList.forEach((item) => {
       const itemPrice = item.quantity * parseInt(item.book.price);
+      
       totalPrice = totalPrice + itemPrice;
     });
     setTotalPrice(totalPrice);
@@ -106,14 +107,14 @@ const Cart = () => {
 
   return (
     <>
-      <Typography variant="h4" color="primary" align="center">
+      <Typography variant="h4" color="primary" align="center" style={{marginTop:20, marginBottom:20}}>
         YOUR CART
       </Typography>
       <br />
       <Grid
         container
         justifyContent="space-between"
-        style={{ Width: "80vw", maxWidth: "700px", marginInline: "auto" }}
+        style={{ Width: "80vw", maxWidth: "700px", marginInline: "auto"}}
       >
         <Grid item xs={6}>
           <Typography variant="h5" color="secondary">
